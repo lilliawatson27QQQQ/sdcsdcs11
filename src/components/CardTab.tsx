@@ -20,6 +20,7 @@ import {
   Zap,
   Globe,
 } from "lucide-react";
+import cardDesignImage from "/images/new-visa-card.png";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -289,11 +290,15 @@ function CardTab({ isActivated = true, balance: propBalance }: CardTabProps) {
             ></div>
 
             <div
-              className={`relative w-full h-full ${
-                physicalCard?.is_frozen
-                  ? "bg-gradient-to-br from-gray-600 via-gray-700 to-gray-800"
-                  : "bg-gradient-to-br from-blue-600 via-purple-600 to-pink-700"
-              } rounded-xl sm:rounded-3xl p-3 sm:p-8 text-white shadow-2xl transform hover:scale-[1.02] transition-all duration-700 border border-white/40 overflow-hidden backdrop-blur-sm`}
+              className={`relative w-full h-full rounded-xl sm:rounded-3xl p-3 sm:p-8 text-white shadow-2xl transform hover:scale-[1.02] transition-all duration-700 border border-white/40 overflow-hidden backdrop-blur-sm`}
+              style={{
+                backgroundImage: physicalCard?.is_frozen
+                  ? "linear-gradient(135deg, rgba(75, 85, 99, 0.9), rgba(55, 65, 81, 0.9), rgba(31, 41, 55, 0.9))"
+                  : `url(${cardDesignImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
             >
               {/* Mobile-Optimized Frozen Overlay */}
               {physicalCard?.is_frozen && (
@@ -310,8 +315,11 @@ function CardTab({ isActivated = true, balance: propBalance }: CardTabProps) {
                 </div>
               )}
 
+              {/* Card overlay for better text readability */}
+              <div className="absolute inset-0 bg-black/10 rounded-xl sm:rounded-3xl"></div>
+
               {/* Mobile-Optimized Background Pattern */}
-              <div className="absolute inset-0 bg-black bg-opacity-10 rounded-xl sm:rounded-3xl overflow-hidden">
+              <div className="absolute inset-0 rounded-xl sm:rounded-3xl overflow-hidden">
                 {/* Mobile-Optimized Chip */}
                 <div className="absolute top-2 sm:top-5 right-3 sm:right-6 w-8 sm:w-14 h-5 sm:h-10 bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 rounded-md sm:rounded-lg shadow-xl border border-yellow-200/50 sm:border-2">
                   <div className="absolute inset-0.5 sm:inset-1 bg-gradient-to-br from-yellow-100/30 to-transparent rounded-sm sm:rounded-md"></div>
@@ -343,10 +351,16 @@ function CardTab({ isActivated = true, balance: propBalance }: CardTabProps) {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg sm:text-3xl font-black tracking-wider text-white drop-shadow-lg">
+                    <div
+                      className="text-lg sm:text-3xl font-black tracking-wider text-white drop-shadow-2xl"
+                      style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
+                    >
                       VISA
                     </div>
-                    <div className="text-xs text-white/80 font-medium tracking-wide">
+                    <div
+                      className="text-xs text-white font-medium tracking-wide drop-shadow-lg"
+                      style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}
+                    >
                       PREMIUM
                     </div>
                   </div>
@@ -356,9 +370,10 @@ function CardTab({ isActivated = true, balance: propBalance }: CardTabProps) {
                 <div className="my-2 sm:my-4">
                   <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
                     <div
-                      className="text-xs sm:text-lg font-mono tracking-wide sm:tracking-widest bg-white/95 bg-clip-text text-transparent drop-shadow-md cursor-pointer hover:bg-white/80 hover:bg-clip-text transition-all duration-200 p-1 sm:p-2 rounded-md sm:rounded-lg hover:bg-white/10 flex-1"
+                      className="text-xs sm:text-lg font-mono tracking-wide sm:tracking-widest text-white cursor-pointer hover:text-gray-200 transition-all duration-200 p-1 sm:p-2 rounded-md sm:rounded-lg hover:bg-white/10 flex-1 drop-shadow-lg"
                       onClick={copyCardNumber}
                       title="انقر لنسخ رقم البطاقة"
+                      style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
                     >
                       {showCardDetails
                         ? (
@@ -389,13 +404,17 @@ function CardTab({ isActivated = true, balance: propBalance }: CardTabProps) {
                 {/* Mobile-Optimized Card Details */}
                 <div className="flex justify-between items-end">
                   <div className="flex flex-col flex-1">
-                    <div className="text-xs text-white/70 font-medium mb-0.5 sm:mb-1">
+                    <div
+                      className="text-xs text-white font-medium mb-0.5 sm:mb-1 drop-shadow-lg"
+                      style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}
+                    >
                       CARDHOLDER NAME
                     </div>
                     <div
-                      className="text-xs sm:text-lg font-mono font-bold bg-white/95 bg-clip-text text-transparent drop-shadow-sm cursor-pointer hover:bg-white/80 hover:bg-clip-text transition-all duration-200 p-1 sm:p-2 rounded-md sm:rounded-lg hover:bg-white/10 truncate"
+                      className="text-xs sm:text-lg font-mono font-bold text-white cursor-pointer hover:text-gray-200 transition-all duration-200 p-1 sm:p-2 rounded-md sm:rounded-lg hover:bg-white/10 truncate drop-shadow-lg"
                       onClick={copyCardholderName}
                       title="انقر لنسخ اسم حامل البطاقة"
+                      style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
                     >
                       {user?.profile?.full_name ||
                         user?.user_metadata?.full_name ||
@@ -403,10 +422,16 @@ function CardTab({ isActivated = true, balance: propBalance }: CardTabProps) {
                     </div>
                   </div>
                   <div className="text-right flex flex-col">
-                    <div className="text-xs text-white/70 font-medium mb-0.5 sm:mb-1">
+                    <div
+                      className="text-xs text-white font-medium mb-0.5 sm:mb-1 drop-shadow-lg"
+                      style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}
+                    >
                       VALID THRU
                     </div>
-                    <div className="text-xs sm:text-lg font-mono font-bold bg-white/95 bg-clip-text text-transparent drop-shadow-sm">
+                    <div
+                      className="text-xs sm:text-lg font-mono font-bold text-white drop-shadow-lg"
+                      style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
+                    >
                       12/28
                     </div>
                   </div>
