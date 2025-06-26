@@ -25,11 +25,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ["react", "react-dom", "react-router-dom"],
-          ui: [
-            "lucide-react",
-            "@radix-ui/react-dialog",
-            "@radix-ui/react-button",
-          ],
+          ui: ["lucide-react", "@radix-ui/react-dialog"],
           auth: ["@supabase/supabase-js"],
         },
       },
